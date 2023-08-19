@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/saavn-web-ui.iml" filepath="$PROJECT_DIR$/.idea/saavn-web-ui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/eric-web-ui.iml" filepath="$PROJECT_DIR$/.idea/eric-web-ui.iml" />
     </modules>
   </component>
 </project>

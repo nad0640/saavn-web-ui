@@ -1,35 +1,35 @@
-var results_container = document.querySelector("#saavn-results")
+var results_container = document.querySelector("#eric-results")
 var results_objects = {};
 const searchUrl = "https://jiosaavn-api-privatecvc.vercel.app/search/songs?query=";
-function SaavnSearch() {
+function EricSearch() {
 event.preventDefault(); // stop page changing to #, which will reload the page
-var query = document.querySelector("#saavn-search-box").value.trim()
+var query = document.querySelector("#eric-search-box").value.trim()
 query = encodeURIComponent(query);
 
-if(query==lastSearch) {doSaavnSearch(query)}
-    window.location.hash = lastSearch; 
-if(query.length > 0) { 
-    window.location.hash = query 
+if(query==lastSearch) {doEricSearch(query)}
+    window.location.hash = lastSearch;
+if(query.length > 0) {
+    window.location.hash = query
 }
 
 }
 var page_index = 1;
 function nextPage() {
-    var query = document.querySelector("#saavn-search-box").value.trim();
+    var query = document.querySelector("#eric-search-box").value.trim();
     if (!query) {query = lastSearch;}
     query = encodeURIComponent(query);
-    doSaavnSearch(query,0,true)
+    doEricSearch(query,0,true)
 }
-async function doSaavnSearch(query,NotScroll,page) {
+async function doEricSearch(query,NotScroll,page) {
     window.location.hash = query;
-    document.querySelector("#saavn-search-box").value = decodeURIComponent(query);
+    document.querySelector("#eric-search-box").value = decodeURIComponent(query);
     if(!query) {return 0;}
 results_container.innerHTML = `<span class="loader">Searching</span>`;
     query=query+"&limit=40";
     if(page) {
         ;page_index=page_index+1;query=query+"&page="+page_index;
     } else {query=query+"&page=1";page_index=1;}
-    
+
 // try catch
 try {
 var response = await fetch(searchUrl + query);
@@ -68,7 +68,7 @@ var song_id = track.id;
 var year = track.year;
 var song_image = track.image[1].link;
 var song_artist = TextAbstract(track.primaryArtists,30);
-var bitrate = document.getElementById('saavn-bitrate');
+var bitrate = document.getElementById('eric-bitrate');
 var bitrate_i = bitrate.options[bitrate.selectedIndex].value;
 if(track.downloadUrl) {
 var download_url = track.downloadUrl[bitrate_i]['link'];
@@ -98,10 +98,10 @@ if (bitrate_i == 4) {quality = 320} else {quality = 160;}
 `
 ); }
     }
-    
+
     results_container.innerHTML = results.join(' ');
     if(!NotScroll){
-    document.getElementById("saavn-results").scrollIntoView();
+    document.getElementById("eric-results").scrollIntoView();
     }
 
 
@@ -119,21 +119,21 @@ function TextAbstract(text, length) {
     return text + "...";
 }
 if(window.location.hash) {
-   doSaavnSearch(window.location.hash.substring(1));
-} else {doSaavnSearch('Ed Sheeran',1);}
+   doEricSearch(window.location.hash.substring(1));
+} else {doEricSearch('Ed Sheeran',1);}
 
 addEventListener('hashchange', event => { });
-onhashchange = event => {doSaavnSearch(window.location.hash.substring(1))};
+onhashchange = event => {doEricSearch(window.location.hash.substring(1))};
 
 // If Bitrate changes, search again
-$('#saavn-bitrate').on('change', function () {
-    doSaavnSearch(lastSearch);
+$('#eric-bitrate').on('change', function () {
+    doEricSearch(lastSearch);
         /*
     var isDirty = !this.options[this.selectedIndex].defaultSelected;
 
     if (isDirty) {
         // Value Changed
-        doSaavnSearch(lastSearch)
+        doEricSearch(lastSearch)
     } else {
         // Do Nothing
     } */
